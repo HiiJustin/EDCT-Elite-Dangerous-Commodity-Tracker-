@@ -62,14 +62,14 @@ See the [requirements.txt](requirements.txt) file for version details.
 
 3. **Testing:**
 
-   - You can test on a single computer by running two instances: one in server mode and one in client mode using `127.0.0.1` (or your LAN IP).
+   - You can test on a single computer by running two instances: one in server mode and one in client mode using `120.0.0.1` (or your LAN IP).
    - Once synced, any updates (adding/updating items, importing state, etc.) will be broadcast to all connected clients (except the one that initiated the change, which won’t receive a duplicate update).
 
 ## Port Forwarding
 
 To allow external connections:
-- Use your **public IP** (e.g., `71.59.149.247`) and ensure port forwarding is configured on your router.
-- If testing on a LAN, use your **private IP** (e.g., `10.0.0.113`).
+- Use your **public IP** (e.g., `70.09.009.007`) and ensure port forwarding is configured on your router.
+- If testing on a LAN, use your **private IP** (e.g., `10.0.0.003`).
 
 ## UPnP
 
