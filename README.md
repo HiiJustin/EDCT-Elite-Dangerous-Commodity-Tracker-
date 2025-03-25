@@ -1,29 +1,102 @@
-Elite Dangerous Commodity Tracker
--------------------------
-This application is a Python-based GUI tool designed to help Elite Dangerous players track and manage commodities during trade runs or market activities. The program features an autocomplete search for quickly finding commodities, an interactive checklist where you can set target amounts and update the number of items you have gathered, and a dedicated "Remaining" column that automatically calculates the difference between the target and gathered amounts. When an item’s gathered quantity meets or exceeds its target, a green checkmark is displayed in the "Complete" column.
+# Commodity Tracker with Centralized Sync
 
-In addition, the tracker supports multiple tabs so you can manage separate commodity lists. You have the ability to create new tabs, rename them, and close tabs (with the exception that the last remaining tab cannot be closed). Items in each list can be sorted by alphabetical order, total amount, or by amount remaining using the provided dropdown menu. The full state of the program—including the current theme, sort option, and details for all tabs—can be exported to a JSON file and later imported to restore your session exactly as you left it. For further analysis, the program offers graphical reports (a bar chart, a pie chart, and a horizontal bar chart) to visually summarize your commodity data. You can also export the current list to an Excel file.
----------------------------------------
-Installation Instructions:
-1. First, ensure you have Python 3 installed on your computer. You can download Python 3 from the official website (https://www.python.org/) and follow the installation instructions for your operating system.
-2. Next, download or clone the repository containing the program files.
-3. Open a terminal (or command prompt) and navigate to the folder where you have saved the project files.
-4. The program requires two external libraries: matplotlib and pandas. Install these dependencies by running the following command:
+This is a Python-based Commodity Tracker application for Elite Dangerous that now includes a real-time, centralized sync system. With this new release, users can share and update their commodity lists in real time via a dedicated server–client model.
+
+## Features
+
+- **Commodity Tracking:** Add, update, and manage a list of tracked commodities.
+- **Real-Time Sync:** A centralized sync system allows one user to run as the server (using their public or private IP) and others connect as clients.
+- **Automatic Updates:** When one user makes changes (adds or updates items), the update is broadcast to all connected clients (with notifications on the receiving end).
+- **Notifications:** Non-intrusive notifications appear on the client side whenever an update is received from another user.
+- **Import/Export:** Supports importing and exporting state as JSON and Excel files.
+- **Graphical Visualization:** View graphs (bar charts and pie charts) of your data using Matplotlib.
+- **UPnP Support:** Automatically sets up UPnP port mapping if available.
+
+## Requirements
+
+- Python 3.8 or higher
+- [matplotlib](https://matplotlib.org/)
+- [pandas](https://pandas.pydata.org/)
+- [miniupnpc](https://pypi.org/project/miniupnpc/)
+
+See the [requirements.txt](requirements.txt) file for version details.
+
+## Installation
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/yourusername/CommodityTracker.git
+   cd CommodityTracker
+   ```
+
+2. **Create a virtual environment (optional but recommended):**
+
+   ```bash
+   python -m venv venv
+   source venv/bin/activate    # On Windows: venv\Scripts\activate
+   ```
+
+3. **Install dependencies:**
+
+   ```bash
    pip install -r requirements.txt
-   (This command reads the required packages from the provided requirements.txt file and installs them automatically.)
-5. Once the dependencies are installed, you are ready to run the application.
-----------------------------------------
-Usage Instructions:
-1. In the terminal, run the program by typing:
-   python commodity_tracker.py
-   The application window will open with all controls visible.
-2. To add a commodity, begin typing its name into the "Commodity" field. The autocomplete feature will display suggestions based on your input—select the desired commodity from the list.
-3. Enter the target amount (the total number you wish to gather) in the "Target Amount" field, then click the "Add Commodity" button or press Enter. The commodity will be added to your checklist in the current tab.
-4. In the checklist, you will see four columns: "Commodity", "Gathered/Needed", "Remaining", and "Complete". The "Gathered/Needed" column shows the current progress (for example, 0/100), and the "Remaining" column automatically displays the difference (in this case, 100). When the gathered amount reaches the target, a green checkmark appears in the "Complete" column.
-5. To update the gathered amount for a commodity, double-click the "Gathered/Needed" cell for that item. A popup window will appear (centered over the main application). Enter the additional number of items you have gathered and click "OK" (or press Enter). The application will update the "Gathered/Needed" and "Remaining" values accordingly.
-6. Use the "Sort By" dropdown to choose how to order your list (alphabetically, by total amount, or by amount remaining). The list will be automatically re-sorted each time you add or update items.
-7. You can manage multiple lists using tabs. To create a new tab, use the appropriate control; to rename a tab, click the "Rename Tab" button and enter the new name; to close a tab, click the red "❌ Close Current Tab" button (the application does not allow you to close the final remaining tab).
-8. To save your work, export the full state of the application by clicking the "Export to JSON" button. This file will contain all program settings (theme, sort option, active tab) and the details for each tab. Later, you can restore your session by clicking the "Import from JSON" button and selecting the saved file.
-9. For visual analysis, click "View Graphs" to open a new window displaying several charts that summarize your commodity data.
-10. If you wish to export the current list to Excel, click the "Export to Excel" button.
+   ```
+
+## Usage
+
+1. **Run the Application:**
+
+   ```bash
+   python CommodityTrackerV2.6.py
+   ```
+
+2. **Sync Setup:**
+
+   - Click **"Sync with Buddy"**.
+   - Enter your user ID.
+   - When prompted, choose whether this instance should act as the server.
+     - If **server**: enter your server IP (either your private IP for LAN or your public IP if you have port forwarding set up).
+     - If **client**: enter the server’s IP.
+   - Enter the port (default is 5000; if you change it, update the port in the code and your port forwarding settings accordingly).
+
+3. **Testing:**
+
+   - You can test on a single computer by running two instances: one in server mode and one in client mode using `127.0.0.1` (or your LAN IP).
+   - Once synced, any updates (adding/updating items, importing state, etc.) will be broadcast to all connected clients (except the one that initiated the change, which won’t receive a duplicate update).
+
+## Port Forwarding
+
+To allow external connections:
+- Use your **public IP** (e.g., `71.59.149.247`) and ensure port forwarding is configured on your router.
+- If testing on a LAN, use your **private IP** (e.g., `10.0.0.113`).
+
+## UPnP
+
+If your network supports UPnP, the app will attempt to automatically set up a port mapping on the default port (5000).
+
+## Release Instructions
+
+1. **Update Version Information:**  
+   - Update the version in your repository (e.g., tag this release as `v2.6`).
+
+2. **Commit Changes:**  
+   - Ensure your latest changes (code, README.md, requirements.txt, etc.) are committed.
+
+3. **Tag the Release:**  
+   - Create a Git tag:
+     ```bash
+     git tag -a v2.6 -m "Release version 2.6 with centralized sync and UPnP support"
+     git push origin v2.6
+     ```
+
+4. **Publish on GitHub:**  
+   - Go to your GitHub repository’s "Releases" section.
+   - Draft a new release using the tag, add release notes (highlight new features, instructions, etc.), and publish.
+
+5. **Share the Link:**  
+   - Once published, share the GitHub release link with your users.
+
 ---
+
+Feel free to modify the README content as needed for your project. Enjoy your new release!
