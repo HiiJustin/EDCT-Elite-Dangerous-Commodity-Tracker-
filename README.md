@@ -1,3 +1,8 @@
+
+![Comm Tracker Pic](https://github.com/user-attachments/assets/720f3b67-4e4e-442e-ae11-721969deea08)
+![Comm Tracker Pic 2](https://github.com/user-attachments/assets/37c8591a-e64d-40e4-8751-7705f2f181dd)
+
+
 # Commodity Tracker with Centralized Sync
 
 This is a Python-based Commodity Tracker application for Elite Dangerous that now includes a real-time, centralized sync system. With this new release, users can share and update their commodity lists in real time via a dedicated server–client model.
